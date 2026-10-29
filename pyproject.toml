@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nanoserve"
+version = "0.1.0"
+description = "A small LLM inference engine: paged KV cache, continuous batching with preemption, and an HTTP server. Outputs are provably independent of batching."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Dharmesh Meena" }]
+dependencies = [
+  "torch>=2.4",
+  "microllm @ git+https://github.com/dharmeshdev1/microllm.git",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.6"]
+
+[project.scripts]
+nanoserve = "nanoserve.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
